@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const recipeForImage = data.find(r => r.category === category);
           const a = document.createElement('a');
           a.className = 'flex-1 min-w-[150px] max-w-xs basis-1/6 flex flex-col items-center group transition hover:shadow-lg';
-          a.href = `/public/category.html?category=${encodeURIComponent(category)}`;
+          a.href = `category.html?category=${encodeURIComponent(category)}`;
           a.innerHTML = `
             <div class="w-full h-48 overflow-hidden rounded-full">
               <img src="${recipeForImage.imageUrl}" alt="${category}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" />
