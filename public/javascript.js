@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (latestContainer) {
     latestContainer.classList.add('flex', 'flex-wrap', 'gap-5', 'justify-center');
-    fetch('https://fed-reciperealm-flavorfuse.onrender.com/latest-recipes')
+    fetch('https://fed-recipe.onrender.com/latest-recipes')
       .then(res => res.json())
       .then(data => {
         data.sort((a, b) => a.id - b.id);
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (indexCategoryContainer) {
     indexCategoryContainer.classList.add('flex', 'flex-wrap', 'gap-5', 'justify-center');
-    fetch('https://fed-reciperealm-flavorfuse.onrender.com/category')
+    fetch('https://fed-recipe.onrender.com/category')
       .then(res => res.json())
       .then(data => {
         const categories = [...new Set(data.map(recipe => recipe.category))];
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const categoryAllContainer = document.getElementById('Category-All');
   if (categoryAllContainer) {
     categoryAllContainer.classList.add('flex', 'flex-wrap', 'gap-5', 'justify-center');
-    fetch('https://fed-reciperealm-flavorfuse.onrender.com/recipes')
+    fetch('https://fed-recipe.onrender.com/recipes')
       .then(res => res.json())
       .then(data => {
         const categories = [...new Set(data.map(recipe => recipe.category))];
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
     const category = params.get('category');
     catTitleEl.textContent = category + ' Recipes';
-    fetch('https://fed-reciperealm-flavorfuse.onrender.com/category')
+    fetch('https://fed-recipe.onrender.com/category')
       .then(res => res.json())
       .then(data => {
         const filtered = data.filter(recipe => recipe.category === category);
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (recipeTitleEl) {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
-    fetch('https://fed-reciperealm-flavorfuse.onrender.com/recipes')
+    fetch('https://fed-recipe.onrender.com/recipes')
       .then(res => res.json())
       .then(data => {
         const recipe = data.find(r => r.id == id);
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let allRecipes = [];
     let filteredRecipes = [];
 
-    fetch('https://fed-reciperealm-flavorfuse.onrender.com/recipes')
+    fetch('https://fed-recipe.onrender.com/recipes')
       .then(res => res.json())
       .then(data => {
         allRecipes = data;
@@ -288,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     try {
-      const res = await fetch('https://fed-reciperealm-flavorfuse.onrender.com/api/contact', {
+      const res = await fetch('https://fed-recipe.onrender.com/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
