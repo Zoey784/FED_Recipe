@@ -109,62 +109,62 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- RECIPE PAGE ---
-  const recipeTitleEl = document.getElementById('recipe-title');
-  if (recipeTitleEl) {
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
-    fetch('https://fed-recipe.onrender.com/recipes')
-      .then(res => res.json())
-      .then(data => {
-        const recipe = data.find(r => r.id == id);
-        if (!recipe) {
-          recipeTitleEl.innerText = 'Recipe not found';
-          return;
-        }
-        recipeTitleEl.innerText = recipe.title;
-        document.getElementById('recipe-description').innerText = recipe.description;
-        document.getElementById('recipe-image').src = recipe.imageUrl;
-        document.getElementById('recipe-image').alt = recipe.title;
-        document.getElementById('total-time').innerText = recipe.totalTime;
-        document.getElementById('prep-time').innerText = recipe.prepTime;
-        document.getElementById('cook-time').innerText = recipe.cookTime;
+const recipeTitleEl = document.getElementById('recipe-title');
+if (recipeTitleEl) {
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get('id');
+  fetch('https://fed-recipe.onrender.com/recipes')
+    .then(res => res.json())
+    .then(data => {
+      const recipe = data.find(r => r.id == id);
+      if (!recipe) {
+        recipeTitleEl.innerText = 'Recipe not found';
+        return;
+      }
+      recipeTitleEl.innerText = recipe.title;
+      document.getElementById('recipe-description').innerText = recipe.description;
+      document.getElementById('recipe-image').src = recipe.imageUrl;
+      document.getElementById('recipe-image').alt = recipe.title;
+      document.getElementById('total-time').innerText = recipe.totalTime;
+      document.getElementById('prep-time').innerText = recipe.prepTime;
+      document.getElementById('cook-time').innerText = recipe.cookTime;
 
-        const ingredientsList = document.getElementById('ingredients-list');
-        recipe.ingredients.forEach(item => {
-          const li = document.createElement('li');
-          li.innerText = item;
-          ingredientsList.appendChild(li);
+      const ingredientsList = document.getElementById('ingredients-list');
+      recipe.ingredients.forEach(item => {
+        const li = document.createElement('li');
+        li.innerText = item;
+        ingredientsList.appendChild(li);
+      });
+
+      const preparationSteps = document.getElementById('preparation-steps');
+      recipe.preparation.forEach(step => {
+        const li = document.createElement('li');
+        li.innerText = step;
+        preparationSteps.appendChild(li);
+      });
+
+      const relatedContainer = document.getElementById('related-recipes-list');
+      if (relatedContainer) {
+        relatedContainer.classList.add('flex', 'flex-wrap', 'gap-5', 'justify-center');
+        const relatedRecipes = data.filter(r => r.id != id);
+        relatedRecipes.sort(() => 0.5 - Math.random());
+        const fiveRelated = relatedRecipes.slice(0, 5);
+        fiveRelated.forEach(recipe => {
+          const a = document.createElement('a');
+          a.href = recipe.link || `recipe.html?id=${recipe.id}&slug=${recipe.title.replace(/\s+/g, '-')}`;
+          a.className = ` w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 block border rounded-xl overflow-hidden group transition hover:shadow-lg`.replace(/\s+/g, ' ').trim();
+          a.innerHTML = `
+            <div class="w-full h-40 overflow-hidden rounded-t-xl">
+              <img src="${recipe.imageUrl}" alt="${recipe.title}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" />
+            </div>
+            <h3 class="p-3 text-center font-medium transition-colors duration-300 group-hover:text-red-500">${recipe.title}</h3>
+          `;
+          relatedContainer.appendChild(a);
         });
-
-        const preparationSteps = document.getElementById('preparation-steps');
-        recipe.preparation.forEach(step => {
-          const li = document.createElement('li');
-          li.innerText = step;
-          preparationSteps.appendChild(li);
-        });
-
-        const relatedContainer = document.getElementById('related-recipes-list');
-        if (relatedContainer) {
-          relatedContainer.classList.add('flex', 'flex-wrap', 'gap-5', 'justify-center');
-          const relatedRecipes = data.filter(r => r.id != id);
-          relatedRecipes.sort(() => 0.5 - Math.random());
-          const fiveRelated = relatedRecipes.slice(0, 5);
-          fiveRelated.forEach(recipe => {
-            const a = document.createElement('a');
-            a.href = recipe.link || `recipe.html?id=${recipe.id}`;
-            a.className = 'flex-1 min-w-[180px] max-w-xs basis-1/6 block border rounded-xl overflow-hidden group transition hover:shadow-lg';
-            a.innerHTML = `
-              <div class="w-full h-40 overflow-hidden rounded-t-xl">
-                <img src="${recipe.imageUrl}" alt="${recipe.title}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" />
-              </div>
-              <h3 class="p-3 text-center font-medium transition-colors duration-300 group-hover:text-red-500">${recipe.title}</h3>
-            `;
-            relatedContainer.appendChild(a);
-          });
-        }
-      })
-      .catch(console.error);
-  }
+      }
+    })
+    .catch(console.error);
+}
 
   // --- RECIPE-ALL PAGE with search ---
   const container = document.getElementById('all-recipes');
