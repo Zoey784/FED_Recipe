@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const nodemailer = require('nodemailer');
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 const recipes = require('./recipes.json');
@@ -70,6 +71,10 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log('Server listening on https://fed-reciperealm-flavorfuse.onrender.com');
+// app.listen(3000, () => {
+//   console.log('Server listening on https://fed-reciperealm-flavorfuse.onrender.com');
+// });
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
