@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
           fiveRelated.forEach(recipe => {
             const a = document.createElement('a');
             a.href = recipe.link || `recipe.html?id=${recipe.id}`;
-            a.className = 'flex-1 min-w-[180px] max-w-xs basis-1/5 block border rounded-xl overflow-hidden group transition hover:shadow-lg';
+            a.className = 'flex-1 min-w-[180px] max-w-xs basis-1/6 block border rounded-xl overflow-hidden group transition hover:shadow-lg';
             a.innerHTML = `
               <div class="w-full h-40 overflow-hidden rounded-t-xl">
                 <img src="${recipe.imageUrl}" alt="${recipe.title}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" />
