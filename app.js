@@ -8,7 +8,7 @@ const app = express();
 const recipes = require('./recipes.json');
 
 app.use(cors({
-  origin: 'http://127.0.0.1:5500'
+  origin: 'https://fed-recipe.onrender.com'
 }));
 app.use(express.json());
 
