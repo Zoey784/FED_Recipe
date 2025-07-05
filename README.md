@@ -1,4 +1,4 @@
-# Recipe
+# RecipeRealm FlavorFuse
 
 Recipe is an online recipe web application designed to inspire and help users easily discover, browse, and save delicious recipes. This project provides a user-friendly and visually engaging experience for food lovers who want to explore new dishes and simplify meal planning.
 
